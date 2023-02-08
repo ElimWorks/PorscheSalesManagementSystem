@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.elimWorks.dao.UserDao">
+
+    <select id="loginMethod" resultType="com.elimWorks.pojo.User">
+        SELECT
+               U.UserId,U.UserFirstName,U.UserLastName,U.UserPhone,U.UserEmail,U.UserPassword,G.GenderName AS UserGender,S.StatusName AS UserStatus,U.UserExist
+        FROM
+             usertable as U,gendertable as G,statustable as S
+        WHERE
+              U.UserGenderId = G.GenderId
+          AND U.UserStatusId = S.StatusId
+          AND U.UserExist = 1
+          AND U.UserPhone = #{account}
+          AND U.UserPassword = #{password};
+    </select>
+
+    <select id="registerCheckMethod" resultType="com.elimWorks.pojo.User">
+        SELECT UserId FROM usertable WHERE (UserPhone = #{userPhone} OR UserEmail = #{userEmail}) AND UserExist = 1;
+    </select>
+    
+    <insert id="registerMethod">
+        INSERT INTO usertable(UserFirstName,UserLastName,UserPhone,UserEmail,UserPassword,UserGenderId,UserStatusId,UserExist)
+            VALUE(#{userFirstName},#{userLastName},#{userPhone},#{userEmail},#{userPassword},#{userGender},3,1);
+    </insert>
+
+    <update id="logoutMethod">
+        UPDATE usertable SET UserExist = 0 WHERE UserId = #{userId};
+    </update>
+
+    <select id="getAgencyById" resultType="com.elimWorks.pojo.Agency">
+        SELECT
+               AgencyId,AgencyName,AgencyProvince,AgencyCity,AgencyCapital,AgencyUserId
+        FROM
+             agencytable
+        WHERE
+              AgencyPermit = 1
+          AND AgencyExist = 1
+          AND AgencyUserId = #{agencyUserId};
+    </select>
+
+    <select id="getUserById" resultType="com.elimWorks.pojo.User">
+        SELECT
+            U.UserId,U.UserFirstName,U.UserLastName,U.UserPhone,U.UserEmail,U.UserPassword,G.GenderName AS UserGender,S.StatusName AS UserStatus,U.UserExist
+        FROM
+            usertable as U,gendertable as G,statustable as S
+        WHERE
+            U.UserGenderId = G.GenderId
+          AND U.UserStatusId = S.StatusId
+          AND U.UserExist = 1
+          AND U.UserId = #{userId};
+    </select>
+
+    <update id="editUserMessageMethod">
+        UPDATE usertable SET UserFirstName = #{userFirstName},UserLastName = #{userLastName},UserPhone = #{userPhone},UserEmail = #{userEmail},UserGenderId = #{userGender} WHERE UserId = #{userId};
+    </update>
+
+    <update id="editUserPasswordMethod">
+        UPDATE usertable SET UserPassword = #{userPassword} WHERE UserId = #{userId};
+    </update>
+
+</mapper>

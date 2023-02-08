@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.elimWorks.dao.AgencyDao">
+
+    <select id="getAllProvince" resultType="com.elimWorks.pojo.Province">
+        SELECT
+               ProvinceId,ProvinceName
+        FROM
+             t_province
+        WHERE
+              ProvinceExist = 1;
+    </select>
+
+    <select id="getAllCity" resultType="com.elimWorks.pojo.City">
+        SELECT
+               CityId,CityName,CityPertain
+        FROM
+             t_city
+        WHERE
+              CityExist = 1;
+    </select>
+
+    <select id="getAllAgency" resultType="com.elimWorks.pojo.Agency">
+        SELECT
+               AgencyId,AgencyName,AgencyProvince,AgencyCity,AgencyCapital,AgencyUserId
+        FROM
+             agencytable
+        WHERE
+              AgencyPermit = 1
+          AND AgencyExist = 1;
+    </select>
+
+    <select id="getAgencyById" resultType="com.elimWorks.pojo.Agency">
+        SELECT
+            AgencyId,AgencyName,AgencyProvince,AgencyCity,AgencyCapital,AgencyUserId
+        FROM
+            agencytable
+        WHERE
+            AgencyPermit = 1
+          AND AgencyExist = 1
+          AND AgencyId = #{agencyId};
+    </select>
+
+    <insert id="registerAgencyMethod">
+        INSERT INTO agencytable (AgencyName,AgencyProvince,AgencyCity,AgencyCapital,AgencyUserId,AgencyPermit,AgencyExist)
+            VALUE(#{agencyName},#{agencyProvince},#{agencyCity},#{agencyCapital},#{agencyUserId},0,1);
+    </insert>
+
+    <select id="getAllInventoryByAgencyId" resultType="com.elimWorks.pojo.Inventory">
+        SELECT
+               InventoryId,InventoryAgencyId,InventoryAutoType,InventoryAutoColor,InventoryAutoWheel,InventoryAutoTrim,InventoryAutoPrice,InventoryPutaway,InventoryReserve,InventoryCompleteness,InventoryPermit
+        FROM
+             inventorytable
+        WHERE
+              InventoryExist = 1
+          AND InventoryAgencyId = #{agencyId};
+    </select>
+
+    <select id="judgeInventoryState" resultType="com.elimWorks.pojo.Inventory">
+        SELECT
+            InventoryId,InventoryAutoType,InventoryAutoColor,InventoryAutoWheel,InventoryAutoTrim,InventoryAutoPrice
+        FROM
+            inventorytable
+        WHERE
+            InventoryAutoType = #{orderAutoName}
+          AND InventoryAutoColor = #{orderColorName}
+          AND InventoryAutoWheel = #{orderWheelName}
+          AND InventoryAutoTrim = #{orderTrimName}
+          AND InventoryAgencyId = #{agencyId}
+          AND InventoryPutaway = 1
+          AND InventoryReserve = 0
+          AND InventoryCompleteness = 0
+          AND InventoryPermit = 1
+          AND InventoryExist = 1;
+    </select>
+
+    <update id="updateInventoryReserve_true">
+        UPDATE inventorytable SET InventoryReserve = 1 WHERE InventoryId = #{inventoryId} AND InventoryExist = 1;
+    </update>
+
+    <update id="updateAllInventoryReserve_flase">
+        UPDATE inventorytable SET InventoryReserve = 0 WHERE InventoryExist = 1;
+    </update>
+
+    <update id="completeStep2_inventory">
+        UPDATE inventorytable SET InventoryCompleteness = 1,InventoryPutaway = 0,InventoryReserve = 0 WHERE InventoryId = #{inventoryId} AND InventoryExist = 1;
+    </update>
+
+    <select id="getUserRegisterAgencyState" resultType="com.elimWorks.pojo.Agency">
+        SELECT
+               AgencyId,AgencyName,AgencyProvince,AgencyCity,AgencyCapital,AgencyUserId,AgencyPermit
+        FROM
+             agencytable
+        WHERE (AgencyPermit = 0 OR AgencyPermit = 1)
+          AND AgencyUserId = #{userId}
+          AND AgencyExist = 1;
+    </select>
+
+</mapper>

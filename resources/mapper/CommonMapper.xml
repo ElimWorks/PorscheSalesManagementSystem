@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.elimWorks.dao.CommonDao">
+
+    <select id="getColorById" resultType="com.elimWorks.pojo.Color">
+        SELECT
+               ColorId,ColorType,ColorName,ColorPrice
+        FROM
+             colortable
+        WHERE
+              ColorExist = 1
+          AND ColorId = #{colorId};
+    </select>
+
+    <select id="getWheelById" resultType="com.elimWorks.pojo.Wheel">
+        SELECT
+               WheelId,WheelName,WheelSize,WheelPrice
+        FROM
+             wheeltable
+        WHERE
+              WheelExist = 1
+          AND WheelId = #{wheelId};
+    </select>
+
+    <select id="getTrimById" resultType="com.elimWorks.pojo.Trim">
+        SELECT
+               TrimId,TrimName,TrimPrice
+        FROM
+             trimtable
+        WHERE
+              TrimExist = 1
+          AND TrimId = #{trimId};
+    </select>
+
+    <insert id="placeOrderMethod">
+        INSERT INTO ordertable(OrderAgencyId,OrderUserId,OrderUserName,OrderUserPhone,OrderAutoName,OrderColorName,OrderWheelName,OrderWheelSize,OrderTrimName,OrderTotalPrice,OrderInventory,OrderInventoryId,OrderTransmit,OrderCompleteness,OrderExist)
+            VALUE(#{orderAgency},#{orderUserId},#{orderUserName},#{orderUserPhone},#{orderAutoName},#{orderColorName},#{orderWheelName},#{orderWheelSize},#{orderTrimName},#{orderTotalPrice},0,0,0,0,1);
+    </insert>
+
+    <select id="getAllOrderByAgencyId" resultType="com.elimWorks.pojo.Order">
+        SELECT
+            O.OrderId,A.AgencyName AS OrderAgency,O.OrderUserId,O.OrderUserName,O.OrderUserPhone,O.OrderAutoName,O.OrderColorName,O.OrderWheelName,O.OrderWheelSize,O.OrderTrimName,O.OrderTotalPrice,O.OrderInventory,O.OrderInventoryId,O.OrderTransmit,O.OrderCompleteness
+        FROM
+            ordertable AS O,agencytable AS A
+        WHERE
+            OrderExist = 1
+          AND A.AgencyId = O.OrderAgencyId
+          AND O.OrderCompleteness = 0
+          AND OrderAgencyId = #{agencyId};
+    </select>
+
+    <select id="getAllOrderByUserId" resultType="com.elimWorks.pojo.Order">
+        SELECT
+            O.OrderId,A.AgencyName AS OrderAgency,O.OrderUserId,O.OrderUserName,O.OrderUserPhone,O.OrderAutoName,O.OrderColorName,O.OrderWheelName,O.OrderWheelSize,O.OrderTrimName,O.OrderTotalPrice,O.OrderInventory,O.OrderInventoryId,O.OrderTransmit,O.OrderCompleteness
+        FROM
+            ordertable AS O,agencytable AS A
+        WHERE
+            OrderExist = 1
+          AND A.AgencyId = O.OrderAgencyId
+          AND OrderUserId = #{userId};
+    </select>
+
+    <select id="getIncompleteOrderByUserId" resultType="com.elimWorks.pojo.Order">
+        SELECT
+            O.OrderId,A.AgencyName AS OrderAgency,O.OrderUserId,O.OrderUserName,O.OrderUserPhone,O.OrderAutoName,O.OrderColorName,O.OrderWheelName,O.OrderWheelSize,O.OrderTrimName,O.OrderTotalPrice,O.OrderInventory,O.OrderInventoryId,O.OrderTransmit,O.OrderCompleteness
+        FROM
+            ordertable AS O,agencytable AS A
+        WHERE
+            OrderExist = 1
+          AND A.AgencyId = O.OrderAgencyId
+          AND O.OrderCompleteness = 0
+          AND OrderUserId = #{userId};
+    </select>
+
+    <select id="getOrderByOrderId" resultType="com.elimWorks.pojo.Order">
+        SELECT
+            OrderId,OrderAgencyId AS OrderAgency,OrderUserId,OrderUserName,OrderUserPhone,OrderAutoName,OrderColorName,OrderWheelName,OrderWheelSize,OrderTrimName,OrderTotalPrice,OrderInventory,OrderInventoryId,OrderTransmit,OrderCompleteness
+        FROM
+            ordertable
+        WHERE
+            OrderExist = 1
+          AND OrderId = #{orderId};
+    </select>
+
+    <update id="updateOrderInventory_true">
+        UPDATE ordertable SET OrderInventory = 1,OrderInventoryId = #{inventoryId} WHERE OrderId = #{orderId};
+    </update>
+
+    <update id="updateOrderInventory_flase">
+        UPDATE ordertable SET OrderInventory = 0 WHERE OrderId = #{orderId};
+    </update>
+
+    <update id="orderCar">
+        UPDATE ordertable SET OrderTransmit = 1 WHERE OrderId = #{orderId};
+    </update>
+
+    <update id="completeStep1_order">
+        UPDATE ordertable SET OrderCompleteness = 1 WHERE OrderId = #{orderId};
+    </update>
+
+    <update id="orderCancel">
+        UPDATE ordertable SET OrderCompleteness = 2 WHERE OrderId = #{orderId};
+    </update>
+
+</mapper>

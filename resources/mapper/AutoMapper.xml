@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.elimWorks.dao.AutoDao">
+
+    <select id="getModelsMessages" resultType="com.elimWorks.pojo.Auto">
+        SELECT
+            A.AutoId,A.AutoName,M.ModelsName AS AutoModel,E.EnergyTypesName AS EnergyType,B.BodyDesignName AS BodyDesign,A.`0-100km/h(s)` AS ZeroToHundredTime,A.`TopTrackSpeed(km/h)` AS TopTrackSpeed,A.`EngineMaxPower(PS)` AS EngineMaxPower,A.`EngineMaxTorque(Nm)` AS EngineMaxTorque,A.`Displacemenet(cc)` AS Displacemenet
+             ,A.`EngineMaxSpeed(rpm)` AS EngineMaxSpeed,A.DesignAndCylinders,A.`ElectromotorMaxPower(PS)` AS ElectromotorMaxPower,A.`ElectromotorMaxTorque(Nm)` AS ElectromotorMaxTorque,A.`DrivingRange(km)` AS DrivingRange,A.`ChargingTimeWith22kW(0-100%)(PerFormanceBatteryPlus)(h)` AS ChargingTime,A.`AutoPrice(￥)` AS AutoPrice,A.Putaway
+        FROM
+            automobiles AS A,bodydesigntype AS B,energytype AS E,modeltype AS M
+        WHERE
+              A.AutoModelId = M.ModelsId
+          AND A.EnergyTypeId = E.EnergyTypesId
+          AND A.BodyDesignId = B.BodyDesignId
+          AND A.Putaway = 1
+          AND A.AutoExist = 1;
+    </select>
+
+    <select id="getModelsAllById" resultType="com.elimWorks.pojo.Auto">
+        SELECT
+            A.AutoId,A.AutoName,M.ModelsName AS AutoModel,E.EnergyTypesName AS EnergyType,B.BodyDesignName AS BodyDesign,A.`0-100km/h(s)` AS ZeroToHundredTime,A.`TopTrackSpeed(km/h)` AS TopTrackSpeed,A.`EngineMaxPower(PS)` AS EngineMaxPower,A.`EngineMaxTorque(Nm)` AS EngineMaxTorque,A.`Displacemenet(cc)` AS Displacemenet
+             ,A.`EngineMaxSpeed(rpm)` AS EngineMaxSpeed,A.DesignAndCylinders,A.`ElectromotorMaxPower(PS)` AS ElectromotorMaxPower,A.`ElectromotorMaxTorque(Nm)` AS ElectromotorMaxTorque,A.`DrivingRange(km)` AS DrivingRange,A.`ChargingTimeWith22kW(0-100%)(PerFormanceBatteryPlus)(h)` AS ChargingTime,A.`AutoPrice(￥)` AS AutoPrice,A.Putaway
+        FROM
+            automobiles AS A,bodydesigntype AS B,energytype AS E,modeltype AS M
+        WHERE
+            A.AutoModelId = M.ModelsId
+          AND A.EnergyTypeId = E.EnergyTypesId
+          AND A.BodyDesignId = B.BodyDesignId
+          AND A.Putaway = 1
+          AND A.AutoExist = 1
+          AND AutoModelId = #{autoModelId};
+    </select>
+
+    <select id="getDetialsByAutoId" resultType="com.elimWorks.pojo.Auto">
+        SELECT
+            A.AutoId,A.AutoName,M.ModelsName AS AutoModel,E.EnergyTypesName AS EnergyType,B.BodyDesignName AS BodyDesign,A.`0-100km/h(s)` AS ZeroToHundredTime,A.`TopTrackSpeed(km/h)` AS TopTrackSpeed,A.`EngineMaxPower(PS)` AS EngineMaxPower,A.`EngineMaxTorque(Nm)` AS EngineMaxTorque,A.`Displacemenet(cc)` AS Displacemenet
+             ,A.`EngineMaxSpeed(rpm)` AS EngineMaxSpeed,A.DesignAndCylinders,A.`ElectromotorMaxPower(PS)` AS ElectromotorMaxPower,A.`ElectromotorMaxTorque(Nm)` AS ElectromotorMaxTorque,A.`DrivingRange(km)` AS DrivingRange,A.`ChargingTimeWith22kW(0-100%)(PerFormanceBatteryPlus)(h)` AS ChargingTime,A.`AutoPrice(￥)` AS AutoPrice,A.Putaway
+        FROM
+            automobiles AS A,bodydesigntype AS B,energytype AS E,modeltype AS M
+        WHERE
+            A.AutoModelId = M.ModelsId
+          AND A.EnergyTypeId = E.EnergyTypesId
+          AND A.BodyDesignId = B.BodyDesignId
+          AND A.Putaway = 1
+          AND A.AutoExist = 1
+          AND AutoId = #{autoId};
+    </select>
+
+    <select id="getAllColorMethod" resultType="com.elimWorks.pojo.Color">
+        SELECT
+               ColorId,ColorType,ColorName,ColorPrice
+        FROM
+             colortable
+        WHERE
+              ColorExist = 1;
+    </select>
+
+    <select id="getAllColorTypeMethod" resultType="com.elimWorks.pojo.Color">
+        SELECT
+            ColorId,ColorType
+        FROM
+            colortable
+        WHERE
+            ColorExist = 1
+        GROUP BY ColorType;
+    </select>
+
+    <select id="getAllWheelMetod" resultType="com.elimWorks.pojo.Wheel">
+        SELECT
+               WheelId,WheelName,WheelSize,WheelPrice
+        FROM
+             wheeltable
+        WHERE
+              WheelExist = 1;
+    </select>
+
+    <select id="getAllTrimMethod" resultType="com.elimWorks.pojo.Trim">
+        SELECT
+               TrimId,TrimName,TrimPrice
+        FROM
+             trimtable
+        WHERE
+              TrimExist = 1;
+    </select>
+
+    <select id="getAllModelType" resultType="com.elimWorks.pojo.Auto_modelType">
+        SELECT ModelsId,ModelsName FROM modeltype;
+    </select>
+
+    <select id="getAllEnergyType" resultType="com.elimWorks.pojo.Auto_energyType">
+        SELECT EnergyTypesId,EnergyTypesName FROM energytype;
+    </select>
+
+    <select id="getAllBodyDesignType" resultType="com.elimWorks.pojo.Auto_bodyDesignType">
+        SELECT BodyDesignId,BodyDesignName FROM bodydesigntype;
+    </select>
+
+</mapper>

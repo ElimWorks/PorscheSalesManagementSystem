@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.elimWorks.dao.OfficialDao">
+
+    <select id="getAllAgencyForNoApproval" resultType="com.elimWorks.pojo.Agency">
+        SELECT
+               AgencyId,AgencyName,AgencyProvince,AgencyCity,AgencyCapital,AgencyUserId,AgencyPermit
+        FROM
+             agencytable
+        WHERE AgencyPermit = 0
+          AND AgencyExist = 1;
+    </select>
+
+    <select id="getAllOrderNeedTransmit" resultType="com.elimWorks.pojo.Order">
+        SELECT
+            O.OrderId,A.AgencyName AS OrderAgency,O.OrderAutoName,O.OrderColorName,O.OrderWheelName,O.OrderTrimName,O.OrderTotalPrice
+        FROM
+            ordertable AS O,agencytable AS A
+        WHERE OrderTransmit = 1
+          AND O.OrderAgencyId = A.AgencyId
+          AND OrderExist = 1;
+    </select>
+
+    <insert id="registerAuto">
+        INSERT INTO
+            automobiles(AutoName,AutoModelId,EnergyTypeId,BodyDesignId,`0-100km/h(s)`,`TopTrackSpeed(km/h)`,`EngineMaxPower(PS)`,`EngineMaxTorque(Nm)`,`Displacemenet(cc)`,`EngineMaxSpeed(rpm)`,DesignAndCylinders,`ElectromotorMaxPower(PS)`,`ElectromotorMaxTorque(Nm)`,`DrivingRange(km)`,`ChargingTimeWith22kW(0-100%)(PerFormanceBatteryPlus)(h)`,`AutoPrice(￥)`,Putaway,AutoExist)
+            VALUE(#{autoName},#{autoModel},#{energyType},#{bodyDesign},#{zeroToHundredTime},#{topTrackSpeed},#{engineMaxPower},#{engineMaxTorque},#{displacemenet},#{engineMaxSpeed},#{designAndCylinders},#{electromotorMaxPower},#{electromotorMaxTorque},#{drivingRange},#{chargingTime},#{autoPrice},1,1);
+    </insert>
+
+    <update id="deliverCarStep1">
+        UPDATE ordertable SET OrderTransmit = 0,OrderInventory = 1 WHERE OrderId = #{orderId};
+    </update>
+
+    <insert id="deliverCarStep2">
+        INSERT INTO inventorytable(InventoryAgencyId,InventoryAutoType,InventoryAutoColor,InventoryAutoWheel,InventoryAutoTrim,InventoryAutoPrice,InventoryPutaway,InventoryReserve,InventoryCompleteness,InventoryPermit,InventoryExist)
+            VALUE(#{orderAgency},#{orderAutoName},#{orderColorName},#{orderWheelName},#{orderTrimName},#{orderTotalPrice},1,0,0,1,1);
+    </insert>
+
+    <update id="agencyRatifyStep1">
+        UPDATE agencytable SET AgencyPermit = 1 WHERE AgencyId = #{agencyId};
+    </update>
+
+    <update id="agencyRatifyStep2">
+        UPDATE usertable SET UserStatusId = 2 WHERE UserId = #{agencyUserId};
+    </update>
+
+    <update id="agencyRefuse">
+        UPDATE agencytable SET AgencyPermit = 2 WHERE AgencyId = #{agencyId};
+    </update>
+
+</mapper>
