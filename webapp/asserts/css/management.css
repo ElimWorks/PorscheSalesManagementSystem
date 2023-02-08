@@ -1,0 +1,13 @@
+.managementBox{
+    width: 1522px;
+    height: 2000px;
+    margin-left: 199px;
+    background-color: cyan;
+}
+
+.managementBox_auto{
+    width: 1522px;
+    height: 3000px;
+    margin-left: 199px;
+    background-color: cyan;
+}

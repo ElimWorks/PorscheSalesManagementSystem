@@ -1,0 +1,93 @@
+.modelsBody{
+    width: 1903px;
+    height: auto;
+}
+.modelsBodyTips{
+    width: 1903px;
+    height: 70px;
+    background-color: #EFF0F1;
+}
+.modelsBodyTips p{
+    font-size: 50px;
+    margin-top: 17px;
+    margin-left: 199px;
+}
+.modelsBox{
+    width: 1522px;
+    margin-left: 199px;
+    height: 3500px;
+    background-color: aquamarine;
+}
+.modelsBoxLeft{
+    float: left;
+    width: 300px;
+    height: 1500px;
+    background-color: aqua;
+}
+.modelsBoxRight{
+    float: left;
+    width: 1222px;
+    height: 3000px;
+}
+
+.modelsBoxRightElement_heading{
+    width: 1122px;
+    height: 70px;
+    margin-left: 100px;
+}
+.modelsBoxRightElement_table{
+    width: 1122px;
+    height: 1000px;
+    margin-left: 100px;
+}
+.modelsBoxRightElement_eBox{
+    width: 100%;
+    height: 35px;
+}
+.modelsBoxRightElement_heading_pBox{
+    width: 400px;
+    height: auto;
+    float: left;
+    background-color: cyan;
+}
+.modelsBoxRightElement_heading_pBox p{
+    font-size: 50px;
+}
+.modelsBoxRightElement_table_pBox{
+    width: 400px;
+    height: 35px;
+    float: left;
+    border-bottom-style: solid;
+    border-bottom-color: #DCDCDC;
+    border-bottom-width: 1px;
+}
+.modelsBoxRightElement_table_pBox p{
+    font-size: 20px;
+}
+
+
+
+
+
+/*
+.modelsBoxRight_Heading{
+    font-size: 50px;
+}
+.modelsBoxRightElement{
+    width: 400px;
+    float: left;
+    background-color: #DCDCDC;
+}
+.modelsBoxRightNav{
+    width: 400px;
+    height: 35px;
+    text-align: left;
+    background-color: #EFF0F1;
+    border-bottom-style: solid;
+    border-bottom-color: #191F22;
+    border-bottom-width: 1px;
+}
+.modelsBoxRightNav_text{
+    font-size: 20px;
+}*/
+

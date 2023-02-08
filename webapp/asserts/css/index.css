@@ -1,0 +1,134 @@
+
+/* body */
+.bodyBox{
+	width: 1903px;
+	height: 950px;
+}
+
+.bodyBoxElement{
+	width: 1903px;
+	height: 475px;
+}
+.bodyBoxElementNav{
+	float: left;
+	
+}
+.bodyBoxElementNav img{
+	width: 634px;
+	height: 475px;
+}
+
+/* slideshow */
+ *{
+        margin:0;
+        padding:0;
+    }
+    a{
+        text-decoration: none;
+    }
+    .Carousel{
+        position: relative;
+        width:1903px;
+        height:700px;
+        margin:50px auto;
+        overflow: hidden;
+        z-index: 1;
+    }
+    #picture{
+        position: absolute;
+        width: 1000%;
+        height: 700px;
+    }
+    #picture img{
+        float: left;
+        width:1920px;
+        height:700px;
+    }
+    .Carousel .arrow{
+        cursor: pointer;
+        position:absolute;
+        top:40%;
+        padding:10px 15px;
+        background-color: rgba(255, 255, 255,0.8);
+        display: inline-block;
+        font-size: 50px;
+        z-index: 2;
+        color:rgb(161, 157, 157);
+        font-weight: bold;
+        display: none;
+    }
+    .Carousel .arrow_left{
+        left:0;
+    }
+    .Carousel .arrow_right{
+        right: 0;
+    }
+    .Carousel:hover .arrow{
+        display: block;
+    }
+    .Carousel .arrow:hover{
+        background-color: rgb(15, 151, 241);
+        font-weight: bold;
+        color:white;
+    }
+
+/* tools */
+.toolsBox{
+	width: 1522px;
+	margin-left: 199px;
+	height: 1100px;
+}
+
+.toolsBoxElement{
+	width: 1522px;
+}
+.toolsBoxElementNav{
+	float: left;
+}
+.toolsBoxElementImg_Type1{
+	width: 608.8px;
+	height: 343px;
+}
+.toolsBoxElementImg_Type2{
+	width: 304.4px;
+	height: 343px;
+}
+.toolsBoxElementImg_Type3{
+	width: 380.5px;
+	height: 285px;
+}
+
+
+
+/* common */
+.text_h1{
+	margin-bottom: 30px;
+	font-size: 48px;
+	margin-left: 199px;
+}
+.text_h2{
+	margin-top: 60px;
+	margin-bottom: 35px;
+	font-size: 48px;
+}
+.text_h3{
+	margin-top: 410px;
+	margin-bottom: 35px;
+	font-size: 48px;
+}
+
+.text_p1{
+	font-size: 14px;
+}
+
+.footerElementP1{
+    font-weight: bold;
+	font-size: 20px;
+}
+.footerElementP2{
+	font-size: 28px;
+	color: #FFFFFF;
+}
+.a_p1{
+	font-size: 16px;
+}

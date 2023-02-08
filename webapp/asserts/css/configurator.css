@@ -1,0 +1,12 @@
+.ConfiguratorBox{
+    width: 1522px;
+    height: 2000px;
+    margin-left: 199px;
+    background-color: cyan;
+}
+
+.ConfiguratorElementImg{
+    width: 304.4px;
+    height: auto;
+    float: left;
+}
