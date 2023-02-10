@@ -1,2 +1,2 @@
-# CarSalesManagementSystem
+# PorscheSalesManagementSystem
 以汽车销售为例，基于SSM框架的线上销售管理系统
